@@ -1,0 +1,16 @@
+{
+  "name": "TsuryPhone Entity Card",
+  "version": "1.0.0",
+  "description": "A comprehensive Lovelace entity card for TsuryPhone devices",
+  "keywords": ["tsuryphone", "phone", "entity-card", "lovelace", "hacs"],
+  "license": "MIT",
+  "author": "Tsury",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tsury/ha-tsuryphone-frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tsury/ha-tsuryphone-frontend/issues"
+  },
+  "homepage": "https://github.com/Tsury/ha-tsuryphone-frontend#readme"
+}

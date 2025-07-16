@@ -1,0 +1,6 @@
+{
+  "name": "TsuryPhone Entity Card",
+  "content_type": "plugin",
+  "render_readme": true,
+  "filename": "tsuryphone-entity-card.js"
+}
