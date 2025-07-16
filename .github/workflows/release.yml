@@ -1,0 +1,40 @@
+name: "Release"
+
+on:
+  release:
+    types:
+      - "published"
+
+permissions: {}
+
+jobs:
+  release:
+    name: "Release"
+    runs-on: "ubuntu-latest"
+    permissions:
+      contents: write
+    steps:
+      - name: "Checkout the repository"
+        uses: "actions/checkout@v4.2.2"
+
+      - name: "Adjust version number in package.json"
+        shell: "bash"
+        run: |
+          jq '.version="${{ github.event.release.tag_name }}"' \
+            "${{ github.workspace }}/package.json" > tmp.json && \
+            mv tmp.json "${{ github.workspace }}/package.json"
+
+      - name: "Create release ZIP with frontend files"
+        shell: "bash"
+        run: |
+          cd "${{ github.workspace }}"
+          zip -r tsuryphone-entity-card.zip \
+            tsuryphone-entity-card.js \
+            package.json \
+            README.md \
+            LICENSE
+
+      - name: "Upload the ZIP file to the release"
+        uses: softprops/action-gh-release@v2.3.2
+        with:
+          files: ${{ github.workspace }}/tsuryphone-entity-card.zip
