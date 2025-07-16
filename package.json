@@ -1,8 +1,14 @@
 {
   "name": "TsuryPhone Entity Card",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A comprehensive Lovelace entity card for TsuryPhone devices",
-  "keywords": ["tsuryphone", "phone", "entity-card", "lovelace", "hacs"],
+  "keywords": [
+    "tsuryphone",
+    "phone",
+    "entity-card",
+    "lovelace",
+    "hacs"
+  ],
   "license": "MIT",
   "author": "Tsury",
   "repository": {

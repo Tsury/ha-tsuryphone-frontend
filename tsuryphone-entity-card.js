@@ -5,7 +5,7 @@ const CARD_CUSTOM_ELEMENT_NAME = "tsuryphone-entity-card";
 const EDITOR_CUSTOM_ELEMENT_NAME = "tsuryphone-entity-card-editor";
 
 // Version and info for HACS
-const CARD_VERSION = "1.0.0";
+const CARD_VERSION = "1.0.1";
 const CARD_DESCRIPTION = "A comprehensive entity card for TsuryPhone devices with call controls, status monitoring, and configuration";
 
 // Console message for debugging
