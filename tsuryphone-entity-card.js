@@ -780,27 +780,10 @@ class TsuryPhoneEntityCard extends LitElement {
   _getEntityState(key) {
     if (!this.config.entity) return null;
     
-    // Try multiple naming patterns to find the entity
-    const patterns = [
-      `sensor.tsuryphone_${key}`,           // New prefixed pattern
-      `sensor.${key}`,                      // Current generic pattern
-    ];
-    
-    // If config.entity is provided, also try using it as a base
-    if (this.config.entity) {
-      const baseEntity = this.config.entity.replace(/^sensor\./, "");
-      patterns.unshift(`sensor.${baseEntity}_${key}`);  // Try config-based pattern first
-    }
-    
-    // Try each pattern until we find an existing entity
-    for (const entityId of patterns) {
-      const entity = this.hass.states[entityId];
-      if (entity) {
-        return entity.state;
-      }
-    }
-    
-    return null;
+    // Use only the tsuryphone prefixed pattern
+    const entityId = `sensor.tsuryphone_${key}`;
+    const entity = this.hass.states[entityId];
+    return entity ? entity.state : null;
   }
 
   async _callService(service, data = {}) {

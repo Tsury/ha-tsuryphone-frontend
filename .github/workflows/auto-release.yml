@@ -1,0 +1,86 @@
+name: "Auto Release"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'tsuryphone-entity-card.js'
+      - 'package.json'
+
+permissions:
+  contents: write
+
+jobs:
+  auto-release:
+    name: "Auto Release"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout the repository"
+        uses: "actions/checkout@v4.2.2"
+        with:
+          fetch-depth: 0
+
+      - name: "Get current version"
+        id: current_version
+        run: |
+          VERSION=$(jq -r '.version' package.json)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: "Increment version"
+        id: increment_version
+        run: |
+          CURRENT="${{ steps.current_version.outputs.version }}"
+          IFS='.' read -ra PARTS <<< "$CURRENT"
+          MAJOR=${PARTS[0]}
+          MINOR=${PARTS[1]}
+          PATCH=${PARTS[2]}
+          NEW_PATCH=$((PATCH + 1))
+          NEW_VERSION="$MAJOR.$MINOR.$NEW_PATCH"
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: "Update package.json version"
+        run: |
+          jq '.version="${{ steps.increment_version.outputs.new_version }}"' \
+            package.json > tmp.json && \
+            mv tmp.json package.json
+
+      - name: "Update card version in JavaScript"
+        run: |
+          sed -i 's/const CARD_VERSION = "[^"]*"/const CARD_VERSION = "${{ steps.increment_version.outputs.new_version }}"/' \
+            tsuryphone-entity-card.js
+
+      - name: "Commit version update"
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add package.json tsuryphone-entity-card.js
+          git commit -m "chore: bump version to ${{ steps.increment_version.outputs.new_version }}"
+          git push
+
+      - name: "Create gzipped version"
+        run: |
+          gzip -k tsuryphone-entity-card.js
+
+      - name: "Create Release"
+        uses: softprops/action-gh-release@v2.3.2
+        with:
+          tag_name: v${{ steps.increment_version.outputs.new_version }}
+          name: "TsuryPhone Entity Card v${{ steps.increment_version.outputs.new_version }}"
+          body: |
+            ## Changes
+            Auto-generated release from latest frontend changes.
+            
+            ## Installation via HACS
+            1. Go to HACS → Frontend
+            2. Search for "TsuryPhone Entity Card"
+            3. Install and restart Home Assistant
+            
+            ## Manual Installation
+            1. Download `tsuryphone-entity-card.js` below
+            2. Copy to `<config>/www/community/tsuryphone-entity-card/`
+            3. Add resource in Lovelace configuration
+          files: |
+            tsuryphone-entity-card.js
+            tsuryphone-entity-card.js.gz
+          generate_release_notes: true
