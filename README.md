@@ -34,7 +34,7 @@ A comprehensive Lovelace entity card for TsuryPhone devices providing call contr
 
 ```yaml
 resources:
-  - url: /hacsfiles/tsuryphone-entity-card/tsuryphone-entity-card.js
+  - url: /hacsfiles/ha-tsuryphone-frontend/tsuryphone-entity-card.js
     type: module
 ```
 
