@@ -24,7 +24,14 @@ jobs:
             "${{ github.workspace }}/package.json" > tmp.json && \
             mv tmp.json "${{ github.workspace }}/package.json"
 
-      - name: "Upload JavaScript file to release"
+      - name: "Create gzipped version"
+        shell: "bash"
+        run: |
+          gzip -k "${{ github.workspace }}/tsuryphone-entity-card.js"
+
+      - name: "Upload JavaScript files to release"
         uses: softprops/action-gh-release@v2.3.2
         with:
-          files: ${{ github.workspace }}/tsuryphone-entity-card.js
+          files: |
+            ${{ github.workspace }}/tsuryphone-entity-card.js
+            ${{ github.workspace }}/tsuryphone-entity-card.js.gz
