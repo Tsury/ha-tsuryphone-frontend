@@ -133,7 +133,7 @@ box-shadow: var(--ha-card-box-shadow);
 
 ## 🔌 Integration with Backend
 
-This card requires the [TsuryPhone integration](https://github.com/Tsury/ha-tsuryphone-new-cc) to be installed and configured in Home Assistant.
+This card requires the [TsuryPhone integration](https://github.com/Tsury/ha-tsuryphone) to be installed and configured in Home Assistant.
 
 **Entity Requirements:**
 - `sensor.{device_id}_phone_state` - Main phone state entity
@@ -187,7 +187,7 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 ## 🔗 Related Projects
 
-- [TsuryPhone Integration](https://github.com/Tsury/ha-tsuryphone-new-cc) - Backend custom component
+- [TsuryPhone Integration](https://github.com/Tsury/ha-tsuryphone) - Backend custom component
 - [TsuryPhone Hardware](https://github.com/Tsury/TsuryPhone) - ESP32-based phone hardware
 
 ## 👤 Author

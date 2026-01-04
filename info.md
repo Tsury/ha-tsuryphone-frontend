@@ -68,7 +68,7 @@ entity: sensor.tsuryphone_phone_state
 ## Requirements
 
 - Home Assistant 2023.1.0 or newer
-- [TsuryPhone integration](https://github.com/Tsury/ha-tsuryphone-new-cc) installed and configured
+- [TsuryPhone integration](https://github.com/Tsury/ha-tsuryphone) installed and configured
 
 ## Support
 
