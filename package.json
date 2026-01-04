@@ -1,6 +1,6 @@
 {
   "name": "tsuryphone-card",
-  "version": "0.1.168-alpha",
+  "version": "0.1.169-alpha",
   "type": "module",
   "description": "Modern Android Pixel-style Phone + Contacts card for TsuryPhone Home Assistant integration",
   "main": "dist/tsuryphone-card.js",
